@@ -70,7 +70,7 @@ function App() {
   
 
 useEffect(() =>{
-  db.collection("posts").onSnapshot(snapshot =>{
+  db.collection("posts").orderBy("timestamp", "desc").onSnapshot(snapshot =>{
     // Whenever a new post added, this code is triggered
     setPosts(snapshot.docs.map(doc => ({
       id:doc.id,
@@ -107,11 +107,7 @@ const signIn = (event) =>{
   return (
     <div className="app">
       
-      {user?.displayName ? (
-        <Imageupload username={user.displayName}/>
-      ):(
-        <h3>Sorry you need to login to upload</h3>
-      )}
+      
 
       
       <Modal
@@ -187,22 +183,31 @@ const signIn = (event) =>{
         src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
         alt="insta logo"
         />
+        {user ? (
+        <Button onClick={() => auth.signOut() } >Log Out</Button>  
+        ):(
+          <div className="app__loginContainer">
+            <Button onClick={() => setOpenSignIn(true)} >Sign In</Button>
+            <Button onClick={() => setOpen(true)} >Sign Up</Button>
+          </div>
+         )}
       </div>
 
-      {user ? (
-        <Button onClick={() => auth.signOut() } >Log Out</Button>  
-      ):(
-        <div className="app__loginContainer">
-          <Button onClick={() => setOpenSignIn(true)} >Sign In</Button>
-          <Button onClick={() => setOpen(true)} >Sign Up</Button>
-        </div>
-      )}
+      
+
       <h1>Hello World this is Arun from India, This is my React Instagram clone Application...</h1>
       {
         posts.map(({id, post}) =>(
           <Post key={id} username={post.username} imageUrl={post.imageUrl} caption={post.caption} />
         ))
       }
+
+      {user?.displayName ? (
+        <Imageupload username={user.displayName}/>
+      ):(
+        <h3>Sorry you need to login to upload</h3>
+      )}
+
     </div>
   );
 }
