@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import {Button, Input} from "@material-ui/core"
 import Imageupload from "./ImageUpload"
+import InstagramEmbed from 'react-instagram-embed';
 
 // Styling Material UI Model
 
@@ -194,14 +195,30 @@ const signIn = (event) =>{
       </div>
 
       
-
-      <h1>Hello World this is Arun from India, This is my React Instagram clone Application...</h1>
-      {
-        posts.map(({id, post}) =>(
-          <Post key={id} username={post.username} imageUrl={post.imageUrl} caption={post.caption} />
-        ))
-      }
-
+      <div className="app__posts">
+          <div className="app__postLeft">
+            {
+              posts.map(({id, post}) =>(
+                <Post key={id} postId={id} username={post.username} imageUrl={post.imageUrl} caption={post.caption} />
+              ))
+            }
+          </div>
+          <div className="app__postRight">
+            <InstagramEmbed
+              url='https://www.instagram.com/p/B_uf9dmAGPw/'
+              maxWidth={320}
+              hideCaption={false}
+              containerTagName='div'
+              protocol=''
+              injectScript
+              onLoading={() => {}}
+              onSuccess={() => {}}
+              onAfterRender={() => {}}
+              onFailure={() => {}}
+            />
+          </div>
+      </div>
+      
       {user?.displayName ? (
         <Imageupload username={user.displayName}/>
       ):(
@@ -209,6 +226,7 @@ const signIn = (event) =>{
       )}
 
     </div>
+    
   );
 }
 

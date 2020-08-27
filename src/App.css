@@ -19,3 +19,11 @@
 .app__headerImage{
   object-fit: contain;
 }
+.app__posts{
+  padding: 20px;
+  display: flex;
+
+}
+.app__postRight{
+  margin-left: 20px;
+}
