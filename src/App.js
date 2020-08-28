@@ -108,9 +108,6 @@ const signIn = (event) =>{
   return (
     <div className="app">
       
-      
-
-      
       <Modal
         open={open}
         onClose={() => setOpen(false)} 
@@ -199,7 +196,7 @@ const signIn = (event) =>{
           <div className="app__postLeft">
             {
               posts.map(({id, post}) =>(
-                <Post key={id} postId={id} username={post.username} imageUrl={post.imageUrl} caption={post.caption} />
+                <Post key={id} postId={id} user={user} username={post.username} imageUrl={post.imageUrl} caption={post.caption} />
               ))
             }
           </div>
